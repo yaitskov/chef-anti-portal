@@ -14,3 +14,11 @@ directory "/hello-test" do
   mode      0777
   recursive true
 end
+
+
+directory "/hello-test/hello" do
+  owner     "root"
+  group     'root'
+  mode      0711
+  recursive true
+end
