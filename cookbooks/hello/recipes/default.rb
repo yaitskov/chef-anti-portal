@@ -16,9 +16,4 @@ directory "/hello-test" do
 end
 
 
-directory "/hello-test/hello" do
-  owner     "root"
-  group     'root'
-  mode      0711
-  recursive true
-end
+
