@@ -1,7 +1,7 @@
 <domain type='kvm'>
-  <name><%= node.kvm.name %></name>
-  <memory unit='MB'><%= node.kvm.mem %></memory>
-  <currentMemory unit='MB'><%= node.kvm.mem %></currentMemory>
+  <name><%= @name %></name>
+  <memory unit='MB'><%= @info.mem %></memory>
+  <currentMemory unit='MB'><%= @info.mem %></currentMemory>
   <vcpu placement='static'>1</vcpu>
   <os>
     <type arch='x86_64' machine='pc-1.2'>hvm</type>
@@ -20,7 +20,7 @@
     <emulator>/usr/bin/kvm-spice</emulator>
     <disk type='file' device='disk'>
       <driver name='qemu' type='raw'/>
-      <source file='<%= node.kvm.disk.path %>/<%= node.kvm.disk.name %>'/>
+      <source file='<%= @info.disk.path %>/<%= @info.disk.name %>'/>
       <target dev='vda' bus='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00'
                slot='0x05' function='0x0'/>
@@ -30,7 +30,7 @@
                slot='0x01' function='0x2'/>
     </controller>
     <interface type='bridge'>
-      <mac address='<%= node.kvm.mac %>'/>
+      <mac address='<%= @info.mac %>'/>
       <source bridge='br0'/>
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00'
