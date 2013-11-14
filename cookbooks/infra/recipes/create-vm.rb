@@ -7,8 +7,9 @@ node.kvm.each do |name,info|
     action :create_if_missing
   end
 
+  domain_file = "#{Chef::Config[:file_cache_path]}/libvirt-domain-for-#{ name }.xml"
   # create domain spec
-  template "#{Chef::Config[:file_cache_path]}/libvirt-domain-for-#{ name }.xml" do
+  template domain_file do
     source "libvirt-domain.xml.erb"
     variables ({ :name => name, :info => info })
     action :create
@@ -16,7 +17,7 @@ node.kvm.each do |name,info|
 
   # call virsh
   execute "create_domain" do
-    command "virsh create --file #{Chef::Config[:file_cache_path]}/libvirt-domain-for-#{ name }.xml"
+    command "virsh create --file #{ domain_file }"
     not_if "virsh domid --domain #{ name }"
   end
 end
