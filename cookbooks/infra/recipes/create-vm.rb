@@ -2,9 +2,9 @@
 
 node.kvm.each do |name,info|
   # copy image
-  remote_file "#{ info.disk.path }/#{ info.disk.name }" do
-    source "file://#{ info.template_disk }"
-    action :create_if_missing
+  execute "copy-disk-for-#{ name }" do
+    command "cp #{ info.template_disk } #{ info.disk.path }/#{ info.disk.name }"
+    not_if "cmp #{ info.template_disk } #{ info.disk.path }/#{ info.disk.name }"
   end
 
   domain_file = "#{Chef::Config[:file_cache_path]}/libvirt-domain-for-#{ name }.xml"
