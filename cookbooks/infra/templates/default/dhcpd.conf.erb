@@ -1,0 +1,20 @@
+option domain-name "<%= @dhcp.domain %>";
+option domain-name-servers <%= @dhcp.dns_ip %>;
+#default-lease-time 600;
+#do-forward-updates true;
+#max-lease-time 7200;
+#log-facility local7;
+#ddns-ttl 10;
+
+subnet <%= @dhcp.subnet %><%= @dhcp.supnet %> netmask <%= @dhcp.netmask %> {
+  option subnet-mask <%= @dhcp.netmask %>;
+  option routers <%= @dhcp.router_ip %>;
+  group {
+    <% @nodes.each do |name,info| %>
+    host <%= name %> {
+       hardware ethernet <%= info.mac %>;
+       fixed-address <%= @dhcp.subnet %><%= info.ip %>;
+    }
+    <% end %>
+  }
+}
