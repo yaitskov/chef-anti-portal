@@ -1,0 +1,15 @@
+$ORIGIN <%= @net.dhcp.domain %>.
+$TTL 100	; 1 minute 40 seconds
+@			IN SOA	kvms.<%= @net.dhcp.domain %>. kvms.<%= @net.dhcp.domain %>. (
+				<%= Time.now.strftime("%Y%m%d%H") %>; serial
+				60       ; refresh (1 hour)
+				60       ; retry (1 hour)
+				60       ; expire (1 hour)
+				60       ; minimum (1 hour)
+				)
+@ IN NS  kvms.<%= @net.dhcp.domain %>.
+
+kvms                    A       <%= @net.dhcp.dns_ip %>
+<% @kvm.each do |name,info| %>
+<%= info.hostname %>             A       <%= @net.dhcp.subnet %><%= info.ip %>
+<% end %>

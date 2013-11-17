@@ -1,0 +1,16 @@
+$ORIGIN <%= @net.bind.tenbus %>.in-addr.arpa.
+$TTL 60	;
+@	IN SOA	kvms.<%= @net.dhcp.domain %>. kvms.<%= @net.dhcp.domain %>. (
+				<%= Time.now.strftime('%Y%m%d%H') %> ; serial
+				60       ; refresh (1 hour)
+				60       ; retry (1 hour)
+				60       ; expire (1 hour)
+				60       ; minimum (1 hour)
+				) ;
+
+@	IN		NS	kvms.<%= @net.dhcp.domain %>.
+1       IN              PTR     kvms.<%= @net.dhcp.domain %>.
+<% @kvm.each do |name,info| %>
+<%= info.ip %>       IN              PTR     <%= info.hostname %>.<% @net.dhcp.domain %>.
+<% end %>
+

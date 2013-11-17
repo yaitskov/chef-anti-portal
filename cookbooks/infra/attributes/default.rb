@@ -7,6 +7,7 @@ default[:kvm] = {
       :path => '/work/libvirtd/images',
       :name => 'chef-server.img'
     },
+    :hostname => 'chef-server',
     :ip => 2,
     :mac => '52:54:00:c5:75:fa'
   },
@@ -17,6 +18,7 @@ default[:kvm] = {
       :path => '/work/libvirtd/images',
       :name => 'chef-workstation.img'
     },
+    :hostname => 'chef-workstation',
     :ip => 3,
     :mac => '52:54:00:20:93:6b'
   },
@@ -27,6 +29,7 @@ default[:kvm] = {
       :path => '/work/libvirtd/images',
       :name => 'n1.img'
     },
+    :hostname => 'chef-n1',
     :mac => '52:54:00:72:e7:c5',
     :ip => 4
   },
@@ -37,6 +40,7 @@ default[:kvm] = {
       :path => '/work/libvirtd/images',
       :name => 'n2.img'
     },
+    :hostname => 'chef-n2',
     :mac => '52:54:00:57:8f:46',
     :ip => 5
   },
@@ -47,6 +51,7 @@ default[:kvm] = {
       :path => '/work/libvirtd/images',
       :name => 'n3.img'
     },
+    :hostname => 'chef-n3',
     :mac => '52:54:00:ec:7d:28',
     :ip => 6
   },
@@ -58,6 +63,7 @@ default[:kvm] = {
       :name => 'chef-kvm.img'
     },
     :ip => 7,
+    :hostname => 'chef-demo',
     :mac => '52:00:00:00:00:01'
   },
   'n4' => {
@@ -68,6 +74,7 @@ default[:kvm] = {
       :name => 'n4.img'
     },
     :ip => 8,
+    :hostname => 'chef-n4',
     :mac => '52:00:00:00:00:02'
   },
   'n5' => {
@@ -78,11 +85,15 @@ default[:kvm] = {
       :name => 'n5.img'
     },
     :ip => 9,
+    :hostname => 'chef-n5',
     :mac => '52:00:00:00:00:03'
   }
 }
 
 default[:net] = {
+  :bind => {
+    :tenbus => '4.168.192'
+  },
   :dhcp => {
     :domain => 'dan.lan',
     :dns_ip => '192.168.4.1',

@@ -1,0 +1,9 @@
+zone "<%= @dhcp.domain %>" IN {
+     type master;
+     file "/var/lib/bind/zones/<%= @dhcp.domain %>.db";
+};
+
+zone "<%= @bind.tenbus %>.in-addr.arpa" {
+     type master;
+     file "/var/lib/bind/zones/rev.<%= @bind.tenbus %>.in-addr.arpa";
+};
