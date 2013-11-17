@@ -1,8 +1,10 @@
 
 default[:lvirt] = {
   :default => {
-    :disk_images => '/work/libvirtd/images',
-    :template_disk => '/work/libvirt-template-guest.img',
+    :disk => {
+      :folder => '/work/libvirtd/images',
+      :template => '/work/libvirt-template-guest.img'
+    },
     :mem => 512 #megabytes
   },
   :vms => {
