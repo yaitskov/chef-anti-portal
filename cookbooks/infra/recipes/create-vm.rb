@@ -1,18 +1,22 @@
+# creates all virtual machines with libvirt
 
-
-node.kvm.each do |name,info|
+node.lvirt.vms.each do |name,info|
   # copy image
-  execute "copy-disk-for-#{ name }" do
-    command "cp #{ info.template_disk } #{ info.disk.path }/#{ info.disk.name }"
-    not_if "cmp #{ info.template_disk } #{ info.disk.path }/#{ info.disk.name }"
+  vm_cfg = node.lvirt.default.merge(info) { |k, x, y| x.merge(y) }
+  if !vm_cfg.disk.attribute?('name')
+    vm_cfg.disk.name = name + '.img'
   end
-
+  disk = vm_cfg.disk.folder + '/' + vm_cfg.disk.name
+  execute "cp #{ vm_cfg.disk.template } #{ disk }" do
+    not_if "[ -f #{ disk } ]"
+  end
+  # TODO: resize to require size
+  # TODO: mount guest image and set host name
   domain_file = "#{Chef::Config[:file_cache_path]}/libvirt-domain-for-#{ name }.xml"
   # create domain spec
   template domain_file do
     source "libvirt-domain.xml.erb"
-    variables ({ :name => name, :info => info })
-    action :create
+    variables ({ :name => name, :info => vm_cfg })
   end
 
   # call virsh
