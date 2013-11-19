@@ -1,6 +1,6 @@
 
 default[:lvirt] = {
-  :default => {
+  :vmdefault => {
     :disk => {
       :folder => '/work/libvirtd/images',
       :template => '/work/libvirt-template-guest.img'

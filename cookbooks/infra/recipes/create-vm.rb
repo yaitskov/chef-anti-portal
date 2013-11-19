@@ -1,10 +1,11 @@
 # creates all virtual machines with libvirt
 
+
 node.lvirt.vms.each do |name,info|
   # copy image
-  vm_cfg = node.lvirt.default.merge(info) { |k, x, y| x.merge(y) }
-  if !vm_cfg.disk.attribute?('name')
-    vm_cfg.disk.name = name + '.img'
+  vm_cfg = node.lvirt.vmdefault.deep_merge(info)
+  if !vm_cfg.disk.key?('name')
+    vm_cfg.update({ :disk => { :name => name + '.img' } })
   end
   disk = vm_cfg.disk.folder + '/' + vm_cfg.disk.name
   execute "cp #{ vm_cfg.disk.template } #{ disk }" do
