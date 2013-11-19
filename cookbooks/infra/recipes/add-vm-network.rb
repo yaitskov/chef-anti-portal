@@ -1,7 +1,7 @@
 # generate dhcpd.conf
 template "/etc/dhcp/dhcpd.conf" do
   source "dhcpd.conf.erb"
-  variables ({ :dhcp => node.net.dhcp, :nodes => node.kvm })
+  variables ({ :dhcp => node.net.dhcp, :vms => node.lvirt.vms })
   action :create
 end
 # restart dhcpd
