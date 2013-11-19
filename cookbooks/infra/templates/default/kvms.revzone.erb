@@ -1,16 +1,21 @@
-$ORIGIN <%= @net.bind.tenbus %>.in-addr.arpa.
+$ORIGIN <%= @zone.subnet.reverse.join(".") %>.in-addr.arpa.
 $TTL 60	;
-@	IN SOA	kvms.<%= @net.dhcp.domain %>. kvms.<%= @net.dhcp.domain %>. (
+@	IN SOA	<%= @zone.ns %>.<%= @zone.domain %>. <%= @zone.ns %>.<%= @zone.domain %>. (
 				<%= Time.now.strftime('%Y%m%d%H') %> ; serial
-				60       ; refresh (1 hour)
-				60       ; retry (1 hour)
-				60       ; expire (1 hour)
-				60       ; minimum (1 hour)
+				60       ; refresh
+				60       ; retry
+				60       ; expire
+				60       ; minimum
 				) ;
 
-@	IN		NS	kvms.<%= @net.dhcp.domain %>.
-1       IN              PTR     kvms.<%= @net.dhcp.domain %>.
-<% @kvm.each do |name,info| %>
-<%= info.ip %>       IN              PTR     <%= info.hostname %>.<% @net.dhcp.domain %>.
+@	IN		NS	<%= @zone.ns %>.<%= @zone.domain %>.
+<% @zone.entries.each do |name,info| %>
+<% if @ip_pool.key?(name) %>
+<%= @ip_pool[name].join(".") %>   IN   PTR     <%= info %>.<%= @zone.domain %>.
+<% else %>
+<% if info.key?(:short_ip) %>
+<%= info.short_ip.join(".") %>   IN   PTR     <%= info.hostname %>.<%= @zone.domain %>.
+<% end %>
+<% end %>
 <% end %>
 

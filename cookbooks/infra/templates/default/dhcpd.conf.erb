@@ -13,7 +13,7 @@ subnet <%= (@dhcp.subnet + @dhcp.supnet).join(".") %> netmask <%= @dhcp.netmask 
     <% @dhcp.pool.each do |name,ip| %>
     host <%= name %> {
        hardware ethernet <%= @vms[name].mac %>;
-       fixed-address <%= (@dhcp.subnet + [ip]).join(".") %>;
+       fixed-address <%= (@dhcp.subnet + ip).join(".") %>;
     }
     <% end %>
   }

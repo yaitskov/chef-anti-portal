@@ -1,15 +1,22 @@
-$ORIGIN <%= @net.dhcp.domain %>.
+$ORIGIN <%= @zone.domain %>.
 $TTL 100	; 1 minute 40 seconds
-@			IN SOA	kvms.<%= @net.dhcp.domain %>. kvms.<%= @net.dhcp.domain %>. (
+@ IN SOA <%= @zone.ns %>.<%= @zone.domain %>. <%= @zone.ns %>.<%= @zone.domain %>. (
 				<%= Time.now.strftime("%Y%m%d%H") %>; serial
-				60       ; refresh (1 hour)
-				60       ; retry (1 hour)
-				60       ; expire (1 hour)
-				60       ; minimum (1 hour)
+				60       ; refresh
+				60       ; retry
+				60       ; expire
+				60       ; minimum
 				)
-@ IN NS  kvms.<%= @net.dhcp.domain %>.
+@ IN NS  <%= @zone.ns %>.<%= @zone.domain %>.
 
-kvms                    A       <%= @net.dhcp.dns_ip %>
-<% @kvm.each do |name,info| %>
-<%= info.hostname %>             A       <%= @net.dhcp.subnet %><%= info.ip %>
+<% @zone.entries do |name,info| %>
+<% if @ip_pool.key?(name) %>
+<%= info %>             A    <%= (@zone.subnet + @ip_pool[name]).join(".") %>
+<% else %>
+<% if info.key?(:short_ip) %>
+<%= info.hostname %>    A    <%= (@zone.subnet + info.short_ip).join(".") %>
+<% else %>
+<%= info.hostname %>    A    <%= info.full_ip %>
+<% end %>
+<% end %>
 <% end %>

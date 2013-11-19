@@ -14,7 +14,7 @@ template "/etc/bind/kvms.conf" do
   owner 'bind'
   group 'bind'
   mode  0644
-  variables ({ :dhcp => node.net.dhcp, :bind => node.net.bind })
+  variables ({ :zones => node.net.bind.zones })
 end
 # create zone folder
 directory "/var/lib/bind/zones" do
@@ -22,21 +22,25 @@ directory "/var/lib/bind/zones" do
   group 'bind'
   mode  0755
 end
-# generate zone file
-template "/var/lib/bind/zones/#{ node.net.dhcp.domain }.db" do
-  source "kvms.zone.erb"
-  owner 'bind'
-  group 'bind'
-  mode  0644
-  variables ({ :net => node.net, :kvm => node.kvm })
-end
-# generate rev zone file
-template "/var/lib/bind/zones/rev.#{ node.net.bind.tenbus }.in-addr.arpa" do
-  source "kvms.revzone.erb"
-  owner 'bind'
-  group 'bind'
-  mode  0644
-  variables ({ :net => node.net, :kvm => node.kvm })
+node.zones do |zone|
+  if zone.key?(:domain)
+    # generate zone file
+    template "/var/lib/bind/zones/#{ node.net.dhcp.domain }.db" do
+      source "kvms.zone.erb"
+      owner 'bind'
+      group 'bind'
+      mode  0644
+      variables ({ :zone => zone, :ip_pool => node.net.dhcp.pool })
+    end
+  end
+  # generate rev zone file
+  template "/var/lib/bind/zones/rev.#{ zone.subnet.reverse.join(".") }.in-addr.arpa" do
+    source "kvms.revzone.erb"
+    owner 'bind'
+    group 'bind'
+    mode  0644
+    variables ({ :zone => zone, :ip_pool => node.net.dhcp.pool })
+  end
 end
 # append link to a zone file
 template "/etc/bind/named.conf" do
