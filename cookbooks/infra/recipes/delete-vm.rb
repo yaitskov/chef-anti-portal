@@ -3,7 +3,6 @@
 node.lvirt.vms.each do |name,info|
   vm_cfg = node.lvirt.vmdefault.deep_merge(info)
   if vm_cfg.deleted
-
     execute "virsh undefine #{ name }" do
       only_if "virsh dominfo n5 | grep Persistent: | grep -c yes"
     end
