@@ -1,10 +1,6 @@
 
 default[:lvirt] = {
   :to_be_terminated => [ ],
-  :delete_as => {
-    :define => :undefine,
-    :create => :destroy
-  },
   :vmdefault => {
     :disk => {
       :folder => '/work/libvirtd/images',
@@ -18,34 +14,26 @@ default[:lvirt] = {
   :vms => {
     :'chef-server' => {
       :mem => 1024,
-      :mac => '52:54:00:c5:75:fa',
-      :produce_as => :create
+      :mac => '52:54:00:c5:75:fa'
     },
     :'chef-workstation' => {
-      :mac => '52:54:00:20:93:6b',
-      :produce_as => :create
+      :mac => '52:54:00:20:93:6b'
     },
     :n1 => {
-      :mac => '52:54:00:72:e7:c5',
-      :produce_as => :create
+      :mac => '52:54:00:72:e7:c5'
     },
     :n2 => {
-      :mac => '52:54:00:57:8f:46',
-      :produce_as => :create
+      :mac => '52:54:00:57:8f:46'
     },
     :n3 => {
-      :mac => '52:54:00:ec:7d:28',
-      :produce_as => :create
+      :mac => '52:54:00:ec:7d:28'
     },
     :'chef-kvm.dan.lan' => {
       :disk => { :name => 'chef-kvm.img' },
-      :mac => '52:00:00:00:00:01',
-      :produce_as => :create
+      :mac => '52:00:00:00:00:01'
     },
     :n4 => {
-      :mac => '52:00:00:00:00:02',
-      :deleted => true,
-      :produce_as => :create
+      :mac => '52:00:00:00:00:02'
     },
     :n5 => {
       :mac => '52:00:00:00:00:03',
