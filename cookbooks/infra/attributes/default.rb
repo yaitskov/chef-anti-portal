@@ -1,10 +1,13 @@
 
 default[:lvirt] = {
+  :to_be_terminated => [ ],
   :vmdefault => {
     :disk => {
       :folder => '/work/libvirtd/images',
       :template => '/work/libvirt-template-guest.img'
     },
+    :autostart => true,
+    :deleted => false,
     :mem => 512 #megabytes
   },
   :vms => {
@@ -21,7 +24,10 @@ default[:lvirt] = {
       :mac => '52:00:00:00:00:01'
     },
     :n4 => { :mac => '52:00:00:00:00:02' },
-    :n5 => { :mac => '52:00:00:00:00:03' }
+    :n5 => {
+      :mac => '52:00:00:00:00:03',
+      :deleted => true
+    }
   }
 }
 
@@ -73,3 +79,5 @@ default[:net] = {
     }
   }
 }
+
+
