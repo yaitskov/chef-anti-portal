@@ -7,6 +7,11 @@ node.lvirt.vms.each do |name,info|
   if !vm_cfg.disk.key?('name')
     vm_cfg.update({ :disk => { :name => name + '.img' } })
   end
+
+  if vm_cfg.deleted
+    return
+  end
+
   disk = vm_cfg.disk.folder + '/' + vm_cfg.disk.name
   execute "cp #{ vm_cfg.disk.template } #{ disk }" do
     not_if "[ -f #{ disk } ]"
