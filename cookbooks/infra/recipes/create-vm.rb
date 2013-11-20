@@ -25,8 +25,8 @@ node.lvirt.vms.each do |name,info|
     not_if "virsh domid --domain #{ name }"
   end
 
-  if vm_cfg.produce_as == :define
-    execute "virsh autostart #{ name }"
+  execute "virsh autostart #{ name }" do
+    only_if "virsh dominfo n5 | grep Persistent: | grep -c yes"
   end
 
   execute "virsh start #{ name }" do
