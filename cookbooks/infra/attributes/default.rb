@@ -4,7 +4,7 @@ default[:lvirt] = {
   :delete_as => {
     :define => :undefine,
     :create => :destroy
-  }
+  },
   :vmdefault => {
     :disk => {
       :folder => '/work/libvirtd/images',
