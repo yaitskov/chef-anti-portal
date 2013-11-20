@@ -21,8 +21,15 @@ node.lvirt.vms.each do |name,info|
   end
 
   # call virsh
-  execute "create_domain" do
-    command "virsh create --file #{ domain_file }"
+  execute "virsh #{ vm_cfg.produce_as } #{ domain_file }" do
     not_if "virsh domid --domain #{ name }"
+  end
+
+  if vm_cfg.produce_as == :define
+    execute "virsh autostart #{ name }"
+  end
+
+  execute "virsh start #{ name }" do
+    not_if "virsh domstate --domain #{ name } | grep -c running"
   end
 end
