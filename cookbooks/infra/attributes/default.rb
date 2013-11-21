@@ -1,8 +1,9 @@
 
 default[:lvirt] = {
-  :to_be_terminated => [ ],
+  :process_vms => [ :n1 ],
   :vmdefault => {
     :disk => {
+      :size => 4 * 1024,
       :folder => '/work/libvirtd/images',
       :template => '/work/libvirt-template-guest.img'
     },
@@ -20,7 +21,8 @@ default[:lvirt] = {
       :mac => '52:54:00:20:93:6b'
     },
     :n1 => {
-      :mac => '52:54:00:72:e7:c5'
+      :mac => '52:54:00:72:e7:c5',
+      :disk => { :size => 5 * 1024 }
     },
     :n2 => {
       :mac => '52:54:00:57:8f:46'
@@ -33,7 +35,8 @@ default[:lvirt] = {
       :mac => '52:00:00:00:00:01'
     },
     :n4 => {
-      :mac => '52:00:00:00:00:02'
+      :mac => '52:00:00:00:00:02',
+      :disk => { :size => 5 * 1024 }
     },
     :n5 => {
       :mac => '52:00:00:00:00:03',
