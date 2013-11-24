@@ -9,3 +9,9 @@ class File
 end
 
 
+# megabytes to gbytes
+def gbytes(n)
+  n * 1024
+end
+
+
