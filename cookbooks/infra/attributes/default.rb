@@ -20,13 +20,7 @@ default[:lvirt] = {
     },
     :n1 => {
       :mac => '52:54:00:72:e7:c5',
-      :disk => { :size_mb => gbytes(5) }
-    },
-    :n2 => {
-      :mac => '52:54:00:57:8f:46'
-    },
-    :n3 => {
-      :mac => '52:54:00:ec:7d:28'
+      :disk => { :size_mb => gbytes(4) }
     }
   }
 }
