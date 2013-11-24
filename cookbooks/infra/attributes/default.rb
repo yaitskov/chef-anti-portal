@@ -3,7 +3,7 @@ default[:lvirt] = {
   :process_vms => [ :n1 ],
   :vmdefault => {
     :disk => {
-      :size => gbytes(2),
+      :size_mb => gbytes(2),
       :folder => '/work/libvirtd/images',
       :template => '/work/libvirt-template-guest.img'
     },
@@ -22,7 +22,7 @@ default[:lvirt] = {
     },
     :n1 => {
       :mac => '52:54:00:72:e7:c5',
-      :disk => { :size => gbytes(5) }
+      :disk => { :size_mb => gbytes(5) }
     },
     :n2 => {
       :mac => '52:54:00:57:8f:46'
@@ -36,7 +36,7 @@ default[:lvirt] = {
     },
     :n4 => {
       :mac => '52:00:00:00:00:02',
-      :disk => { :size => gbytes(5) }
+      :disk => { :size_mb => gbytes(5) }
     },
     :n5 => {
       :mac => '52:00:00:00:00:03',
