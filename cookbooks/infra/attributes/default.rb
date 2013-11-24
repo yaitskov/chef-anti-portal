@@ -3,7 +3,7 @@ default[:lvirt] = {
   :process_vms => [ :n1 ],
   :vmdefault => {
     :disk => {
-      :size_mb => gbytes(2),
+      :size_mb => gbytes(4),
       :folder => '/work/libvirtd/images',
       :template => '/work/libvirt-template-guest.img'
     },
@@ -15,10 +15,8 @@ default[:lvirt] = {
   :vms => {
     :'chef-server' => {
       :mem => 1024,
+      :disk => { :size_mb => gbytes(6) },
       :mac => '52:54:00:c5:75:fa'
-    },
-    :'chef-workstation' => {
-      :mac => '52:54:00:20:93:6b'
     },
     :n1 => {
       :mac => '52:54:00:72:e7:c5',
@@ -29,18 +27,6 @@ default[:lvirt] = {
     },
     :n3 => {
       :mac => '52:54:00:ec:7d:28'
-    },
-    :'chef-kvm.dan.lan' => {
-      :disk => { :name => 'chef-kvm.img' },
-      :mac => '52:00:00:00:00:01'
-    },
-    :n4 => {
-      :mac => '52:00:00:00:00:02',
-      :disk => { :size_mb => gbytes(5) }
-    },
-    :n5 => {
-      :mac => '52:00:00:00:00:03',
-      :deleted => true
     }
   }
 }
