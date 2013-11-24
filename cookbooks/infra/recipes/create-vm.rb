@@ -16,7 +16,18 @@ node.lvirt.vms.each do |name,info|
   execute "cp #{ vm_cfg.disk.template } #{ disk }" do
     not_if "[ -f #{ disk } ]"
   end
-  # TODO: resize to require size
+
+  execute "virsh shutdown #{ name }" do
+    only_if "virsh domstate #{ name } | grep -c running"
+  end
+
+  ruby_block "resize disk" do
+    block do
+      resize_raw_image(disk, vm_cfg.disk.size_mb)
+    end
+    not_if { File.size(disk) * 1024 * 1024 == vm_cfg.disk.size_mb }
+  end
+
   # TODO: mount guest image and set host name
   domain_file = "#{Chef::Config[:file_cache_path]}/libvirt-domain-for-#{ name }.xml"
   # create domain spec
