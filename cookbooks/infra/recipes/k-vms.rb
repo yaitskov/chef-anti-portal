@@ -25,7 +25,7 @@ node.lvirt.vms.each do |name,info|
     block do
       resize_raw_image(disk, vm_cfg.disk.size_mb)
     end
-    not_if { File.size(disk) * 1024 * 1024 == vm_cfg.disk.size_mb }
+    not_if { File.size(disk) == vm_cfg.disk.size_mb  * 1024 * 1024 }
   end
 
   # TODO: mount guest image and set host name
