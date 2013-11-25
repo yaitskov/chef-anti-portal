@@ -42,7 +42,7 @@ node.lvirt.vms.each do |name,info|
     command "partprobe /dev/loop0"
   end
 
-  directory "/tmp/mount-vm-image" 
+  directory "/tmp/mount-vm-image"
 
   # if previous fail
   execute "umount image" do
@@ -67,9 +67,9 @@ node.lvirt.vms.each do |name,info|
     action :delete
   end
 
-  # execute " free loop" do
-  #   command "losetup -d /dev/loop0"
-  # end
+  execute " free loop" do
+    command "losetup -d /dev/loop0"
+  end
 
   domain_file = "#{Chef::Config[:file_cache_path]}/libvirt-domain-for-#{ name }.xml"
   # create domain spec
