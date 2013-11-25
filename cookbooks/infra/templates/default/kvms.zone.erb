@@ -9,7 +9,7 @@ $TTL 100	; 1 minute 40 seconds
 				)
 @ IN NS  <%= @zone.ns %>.<%= @zone.domain %>.
 
-<% @zone.entries do |name,info| %>
+<% @zone.xentries do |name,info| %>
 <% if @ip_pool.key?(name) %>
 <%= info %>             A    <%= (@zone.subnet + @ip_pool[name]).join(".") %>
 <% else %>
