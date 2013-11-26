@@ -22,7 +22,7 @@ directory "/var/lib/bind/zones" do
   group 'bind'
   mode  0755
 end
-node.zones do |zone|
+node.net.bind.zones do |zone|
   if zone.key?(:domain)
     # generate zone file
     template "/var/lib/bind/zones/#{ node.net.dhcp.domain }.db" do
