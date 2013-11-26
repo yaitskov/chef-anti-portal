@@ -1,15 +1,17 @@
 <% @zones.each do |zone| %>
 
-<% if zone.key?('domain') %>
+<% if [ :both, :dir ].include?(zone.xtype) %>
 zone "<%= zone.domain %>" IN {
      type master;
      file "/var/lib/bind/zones/<%= zone.domain %>.db";
 };
 <% end %>
 
+<% if [ :both, :rev ].include?(zone.xtype) %>
 zone "<%= zone.subnet.reverse.join(".") %>.in-addr.arpa" {
      type master;
      file "/var/lib/bind/zones/rev.<%= zone.subnet.reverse.join(".") %>.in-addr.arpa";
 };
+<% end %>
 
 <% end %>
