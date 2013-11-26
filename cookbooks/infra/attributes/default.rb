@@ -30,6 +30,7 @@ default[:net] = {
     :zones =>
     [ {
         :subnet =>  [ 192, 168, 4 ],
+        :xtype => :both,
         :ns => 'kvms',
         :domain => 'dan.lan', # no direct zone if missing
         :xentries => {
@@ -48,8 +49,11 @@ default[:net] = {
       },
       {
         :subnet =>  [ 192, 168, 0 ],
+        :ns => 'kvms',
+        :domain => 'dan.lan', # no direct zone if missing
+        :xtype => :rev,
         :xentries => {
-          :hp530 => { :short_ip => [ 52 ] }
+          :hp530 => { :short_ip => [ 52 ], :hostname => 'hp530' }
         }
       }
     ]
