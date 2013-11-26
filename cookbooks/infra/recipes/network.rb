@@ -22,8 +22,9 @@ directory "/var/lib/bind/zones" do
   group 'bind'
   mode  0755
 end
-node.zones do |zone|
-  if zone.key?(:domain)
+
+node.net.bind.zones.each do |zone|
+  if [ :both, :dir ].include?(zone.xtype)
     # generate zone file
     template "/var/lib/bind/zones/#{ node.net.dhcp.domain }.db" do
       source "kvms.zone.erb"
@@ -34,12 +35,14 @@ node.zones do |zone|
     end
   end
   # generate rev zone file
-  template "/var/lib/bind/zones/rev.#{ zone.subnet.reverse.join(".") }.in-addr.arpa" do
-    source "kvms.revzone.erb"
-    owner 'bind'
-    group 'bind'
-    mode  0644
-    variables ({ :zone => zone, :ip_pool => node.net.dhcp.pool })
+  if [ :both, :rev ].include?(zone.xtype)  
+    template "/var/lib/bind/zones/rev.#{ zone.subnet.reverse.join(".") }.in-addr.arpa" do
+      source "kvms.revzone.erb"
+      owner 'bind'
+      group 'bind'
+      mode  0644
+      variables ({ :zone => zone, :ip_pool => node.net.dhcp.pool })
+    end
   end
 end
 # append link to a zone file

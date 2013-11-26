@@ -30,9 +30,10 @@ default[:net] = {
     :zones =>
     [ {
         :subnet =>  [ 192, 168, 4 ],
+        :xtype => :both,
         :ns => 'kvms',
         :domain => 'dan.lan', # no direct zone if missing
-        :entries => {
+        :xentries => {
           :'chef-server' => 'chef-server',
           :'chef-workstation' => 'chef-workstation',
           :n1 => 'chef-n1',
@@ -48,8 +49,11 @@ default[:net] = {
       },
       {
         :subnet =>  [ 192, 168, 0 ],
-        :entries => {
-          :hp530 => { :short_ip => [ 52 ] }
+        :ns => 'kvms',
+        :domain => 'dan.lan', # no direct zone if missing
+        :xtype => :rev,
+        :xentries => {
+          :hp530 => { :short_ip => [ 52 ], :hostname => 'hp530' }
         }
       }
     ]

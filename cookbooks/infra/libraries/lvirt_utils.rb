@@ -7,13 +7,14 @@ def resize_raw_image(path,new_size_mb)
     tmpimage.truncate(new_size)
     #Chef::Log.info("virt-resize --expand /dev/sda1 #{path} #{tmpimage.path}")
     #Chef::Log.info("new size #{new_size} old size  #{ File.size(path) }")    
-    %x(virt-resize --expand /dev/sda1 #{path} #{tmpimage.path})
+    msg = %x(virt-resize --expand /dev/sda1 #{path} #{tmpimage.path} 2>&1)
     e_st = $?.exitstatus
     #Chef::Log.info("virt-resize exit status #{e_st}")        
     if e_st != 0
+      msg = "failed resize: #{ msg };\nvirt-resize --expand /dev/sda1 #{path} #{tmpimage.path}"
       tmpimage.close
       tmpimage.unlink
-      raise "failed resize"
+      raise msg
     else
       Chef::Log.info("resize is ok")      
       tmpimage.close

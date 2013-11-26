@@ -11,10 +11,12 @@ subnet <%= (@dhcp.subnet + @dhcp.supnet).join(".") %> netmask <%= @dhcp.netmask 
   option routers <%= @dhcp.router_ip %>;
   group {
     <% @dhcp.pool.each do |name,ip| %>
+    <% if @vms.key?(name) %>
     host <%= name %> {
        hardware ethernet <%= @vms[name].mac %>;
        fixed-address <%= (@dhcp.subnet + ip).join(".") %>;
     }
+    <% end %>
     <% end %>
   }
 }

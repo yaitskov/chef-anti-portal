@@ -9,7 +9,7 @@ $TTL 60	;
 				) ;
 
 @	IN		NS	<%= @zone.ns %>.<%= @zone.domain %>.
-<% @zone.entries.each do |name,info| %>
+<% @zone.xentries.each do |name,info| %>
 <% if @ip_pool.key?(name) %>
 <%= @ip_pool[name].join(".") %>   IN   PTR     <%= info %>.<%= @zone.domain %>.
 <% else %>
