@@ -80,3 +80,5 @@ default[:net] = {
 
 
 default.dd = "default dd message"
+
+default.root_user = { :name => 'dan' }
