@@ -42,28 +42,38 @@ node.lvirt.vms.each do |name,info|
     command "partprobe /dev/loop0"
   end
 
-  directory "/tmp/mount-vm-image"
+  guest_root = "/tmp/mount-vm-image"
+
+  directory guest_root
 
   # if previous fail
   execute "umount image" do
     command "umount /dev/loop0p1"
-    only_if "df | grep /tmp/mount-vm-image"
+    only_if "df | grep #{ guest_root }"
   end
 
   execute "mount image" do
-    command "mount -t ext4 /dev/loop0p1 /tmp/mount-vm-image"
+    command "mount -t ext4 /dev/loop0p1 #{ guest_root }"
   end
 
-  template "/tmp/mount-vm-image/etc/hostname" do
+  template "#{ guest_root }/etc/hostname" do
     source "hostname.erb"
     variables ({  :hostname => vm_fqdn(node.net, name) })
+  end
+
+  template "#{ guest_root }/etc/sudoers" do
+    source "sudoers.erb"
+    owner 'root'
+    group 'root'
+    mode 0440
+    variables ({ :user => node.root_user.name })
   end
 
   execute "unmount image" do
     command "umount /dev/loop0p1"
   end
 
-  directory "/tmp/mount-vm-image"  do
+  directory "#{ guest_root }"  do
     action :delete
   end
 
