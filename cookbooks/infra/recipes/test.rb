@@ -23,4 +23,4 @@ ruby_block "bbbb" do
   end
 end
 
-log "tagged #{ search(:node, 'tags:*seed*').map { |n| n[:ipaddress] } }"
+log "tagged #{ search(:node, 'tags:*cassandra-seed*').map { |n| n[:ipaddress] } }"
