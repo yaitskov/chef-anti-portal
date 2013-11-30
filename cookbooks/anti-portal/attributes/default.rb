@@ -9,7 +9,7 @@ override['java']['jdk']['7']['x86_64']['checksum'] = 'f2eae4d81c69dfa79d02466d1c
 
 override.cassandra = {
   :cluster_name => 'AntiPortal',
-  :user => 'dan',
+  #:user => 'dan',
   :rpc_address => '0.0.0.0',
   :vnodes => 256,
   :snitch => 'SimpleSnitch'
