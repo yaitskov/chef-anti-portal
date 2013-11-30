@@ -10,3 +10,7 @@
 node.override.cassandra.seeds = search(:node, 'tags:cassandra-seed').map {|n|n[:ipaddress]}
 
 include_recipe "cassandra::tarball"
+
+service "cassandra" do
+  action :start
+end
