@@ -1,4 +1,5 @@
 
+log "chef-server ip is known for n1. it is #{ search(:node, 'name:chef-server').first[:ipaddress] }"
 
 node.languages.each do |lname,ldesc|
   log "lang #{lname}"
