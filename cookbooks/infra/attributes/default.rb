@@ -20,7 +20,15 @@ default[:lvirt] = {
     },
     :n1 => {
       :mac => '52:54:00:72:e7:c5',
-      :disk => { :size_mb => gbytes(4) }
+      :mem => 768
+    },
+    :n2 => {
+      :mac => '52:54:00:00:00:01',
+      :mem => 768
+    },
+    :n3 => {
+      :mac => '52:54:00:00:00:02',
+      :mem => 768
     }
   }
 }
@@ -37,8 +45,8 @@ default[:net] = {
           :'chef-server' => 'chef-server',
           :'chef-workstation' => 'chef-workstation',
           :n1 => 'chef-n1',
-          :n2 => 'chef-n2',
-          :n3 => 'chef-n3',
+          :n2 => 'cas2',
+          :n3 => 'cas3',
           :n4 => 'chef-n4',
           :n5 => 'chef-n5',
           # hack for exclusive hosts (real hardware)
