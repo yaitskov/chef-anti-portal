@@ -9,7 +9,6 @@ override.cassandra = {
   :user => 'dan',
   :rpc_address => '0.0.0.0',
   :vnodes => 256,
-  :seeds => search(:node, 'tag:cassandra-seed').map {|n|n[:ipaddress]},
   :snitch => 'SimpleSnitch'
 }
 
