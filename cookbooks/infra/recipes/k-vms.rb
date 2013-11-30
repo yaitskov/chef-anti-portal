@@ -34,6 +34,10 @@ node.lvirt.vms.each do |name,info|
     not_if { File.size(disk) == vm_cfg.disk.size_mb  * 1024 * 1024 }
   end
 
+  execute "umount /tmp/mount-vm-image" do
+    only_if "df | grep -q /tmp/mount-vm-image"
+  end
+
   execute "check loop is free" do
     command "losetup -d /dev/loop0"
     only_if "losetup -a | grep /dev/loop0"
@@ -75,7 +79,7 @@ node.lvirt.vms.each do |name,info|
     variables ({ :user => node.root_user.name })
   end
 
-  execute "unmount image" do
+  execute "umount image" do
     command "umount /dev/loop0p1"
   end
 
