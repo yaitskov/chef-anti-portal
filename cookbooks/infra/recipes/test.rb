@@ -1,5 +1,5 @@
 
-log "chef-server ip is known for n1. it is #{ search(:node, 'name:chef-server').first[:ipaddress] }"
+log "chef-server ip is known for n1. it is #{ search(:node, 'name:chef-server').map { |n| n[:ipaddress] } }"
 
 node.languages.each do |lname,ldesc|
   log "lang #{lname}"
@@ -22,3 +22,5 @@ ruby_block "bbbb" do
     Chef::Log.warn("DDDDDDDDDDDDD")
   end
 end
+
+log "tagged #{ search(:node, 'tags:*seed*').map { |n| n[:ipaddress] } }"
