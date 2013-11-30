@@ -2,6 +2,12 @@
 
 
 node.lvirt.vms.each do |name,info|
+
+  if !Chef::Config[:solo] and name == 'chef-server'
+    log "skip vm #{ name } because chef-server will shutdown itself. Available only in solo mode"
+    next
+  end
+
   # copy image
   vm_cfg = node.lvirt.vmdefault.deep_merge(info)
   if !vm_cfg.disk.key?('name')
