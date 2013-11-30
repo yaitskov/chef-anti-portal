@@ -14,3 +14,10 @@ include_recipe "cassandra::tarball"
 service "cassandra" do
   action :start
 end
+
+template "/etc/profile.d/cassandra.sh" do
+  owner "root"
+  group "root"
+  mode "0755"
+  source "cassandra.sh.erb"
+end
