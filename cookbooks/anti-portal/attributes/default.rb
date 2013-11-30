@@ -2,6 +2,9 @@ override['java']['install_flavor'] = 'oracle'
 override['java']['jdk_version'] = '7'
 override['java']['oracle']['accept_oracle_download_terms'] = true
 
+override['java']['jdk']['7']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/7u45-b18/jdk-7u45-linux-x64.tar.gz'
+override['java']['jdk']['7']['x86_64']['checksum'] = 'f2eae4d81c69dfa79d02466d1cb34db2b628815731ffc36e9b98f96f46f94b1a'
+
 
 
 override.cassandra = {
