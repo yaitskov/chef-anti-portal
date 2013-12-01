@@ -12,7 +12,7 @@ node.override.cassandra.seeds = search(:node, 'tags:cassandra-seed').map {|n|n[:
 include_recipe "cassandra::tarball"
 
 service "cassandra" do
-  action :start
+  action :restart
 end
 
 template "/etc/profile.d/cassandra.sh" do
