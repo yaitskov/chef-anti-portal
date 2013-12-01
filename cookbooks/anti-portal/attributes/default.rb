@@ -12,6 +12,9 @@ override.cassandra = {
   #:user => 'dan',
   :rpc_address => '0.0.0.0',
   :vnodes => 256,
-  :snitch => 'SimpleSnitch'
+  :snitch => 'PropertyFileSnitch',
+  :snitch_conf => {
+    :default => { :dc => 'DC1', :rac => 'r1' }
+  }
 }
 
