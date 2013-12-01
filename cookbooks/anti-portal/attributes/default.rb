@@ -18,3 +18,12 @@ override.cassandra = {
   }
 }
 
+override.tomcat = {
+  :base_version => "7",
+  #user"] -
+  #node["tomcat"]["group"] -
+  #node["tomcat"]["home"]
+  :loglevel => "debug",
+  :java_options => "-Xmx512M -Djava.awt.headless=true"
+}
+
