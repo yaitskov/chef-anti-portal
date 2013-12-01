@@ -23,6 +23,11 @@ node.lvirt.vms.each do |name,info|
     not_if "[ -f #{ disk } ]"
   end
 
+  if shif("virsh domstate #{ name } | grep -c running")
+    log "skip vm #{ name } due it's running"
+    next
+  end
+
   execute "virsh shutdown #{ name }" do
     only_if "virsh domstate #{ name } | grep -c running"
   end

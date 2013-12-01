@@ -9,3 +9,15 @@ def shex(cmd)
   end
   stdout_r
 end
+
+
+def shif(cmd)
+  stdout_r = system(cmd)
+  $?.exitstatus == 0
+end
+
+
+def sh_notif(cmd)
+  stdout_r = system(cmd)
+  $?.exitstatus != 0
+end
