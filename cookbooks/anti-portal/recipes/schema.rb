@@ -1,6 +1,10 @@
 # cassandra cluster can have many instances
 # but schema is deployed only once.
 
+package "unzip" do
+  action :install
+end
+
 remote_file "/home/dan/master.zip" do
   source "https://github.com/yaitskov/anti-portal/archive/master.zip"
   backup 0
