@@ -1,3 +1,9 @@
 [submodule "cookbooks/cassandra"]
 	path = cookbooks/cassandra
 	url = git@github.com:yaitskov/cassandra-chef-cookbook.git
+[submodule "cookbooks/openssl"]
+	path = cookbooks/openssl
+	url = https://github.com/opscode-cookbooks/openssl.git
+[submodule "cookbooks/tomcat"]
+	path = cookbooks/tomcat
+	url = https://github.com/opscode-cookbooks/tomcat.git
