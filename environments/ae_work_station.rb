@@ -24,6 +24,12 @@ default_attributes :lvirt => {
     },
     :n1 => {
       :disk => { :size_mb => gbytes(8) }
+    },
+    :n2 => {
+      :disk => { :size_mb => gbytes(8) }
+    },
+    :n3 => {
+      :disk => { :size_mb => gbytes(8) }      
     }
   }
 }
