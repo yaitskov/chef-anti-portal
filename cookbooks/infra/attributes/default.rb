@@ -38,6 +38,27 @@ default[:lvirt] = {
       :disk => {
         :size_mb => gbytes(22)
       }
+    },
+    :n4 => {
+      :mac => '52:54:00:00:00:03',
+      :disk => {
+        :size_mb => gbytes(22)
+      },
+      :mem => 768
+    },
+    :n5 => {
+      :mac => '52:54:00:00:00:04',
+      :mem => 768,
+      :disk => {
+        :size_mb => gbytes(22)
+      }
+    },
+    :n6 => {
+      :mac => '52:54:00:00:00:05',
+      :mem => 768,
+      :disk => {
+        :size_mb => gbytes(22)
+      }
     }
   }
 }
@@ -56,8 +77,9 @@ default[:net] = {
           :n1 => 'chef-n1',
           :n2 => 'cas2',
           :n3 => 'cas3',
-          :n4 => 'chef-n4',
-          :n5 => 'chef-n5',
+          :n4 => 'cas4',
+          :n5 => 'cas5',
+          :n6 => 'cas6',
           # hack for exclusive hosts (real hardware)
           :kvms => { :hostname => 'kvms', :short_ip => [ 1 ] },
           :hp530 => { :hostname => 'hp530', :full_ip => '192.168.0.52' },
@@ -91,6 +113,7 @@ default[:net] = {
       :'chef-kvm.dan.lan' => [ 7 ],
       :n4 => [ 8 ],
       :n5 => [ 9 ],
+      :n6 => [ 10 ],
     }
   }
 }
