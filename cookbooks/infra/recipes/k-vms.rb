@@ -18,14 +18,14 @@ node.lvirt.vms.each do |name,info|
     return
   end
 
+  if shif("virsh domstate #{ name } | grep -q running")
+    log "skip vm #{ name } due it's running"
+    next
+  end
+
   disk = vm_cfg.disk.folder + '/' + vm_cfg.disk.name
   execute "cp #{ vm_cfg.disk.template } #{ disk }" do
     not_if "[ -f #{ disk } ]"
-  end
-
-  if shif("virsh domstate #{ name } | grep -c running")
-    log "skip vm #{ name } due it's running"
-    next
   end
 
   execute "virsh shutdown #{ name }" do
